@@ -1,0 +1,27 @@
+.navtab__container {
+  height: 66px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #F5F5F5;
+}
+
+.navtab {
+  display: flex;
+  gap: 40px;
+  background-color: #F5F5F5;
+}
+
+.navtab__link {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 2px solid #000;
+  transition: all 0.2s ease-in-out;
+}
+
+.navtab__link:hover {
+  opacity: 0.6;
+}
