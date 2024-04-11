@@ -35,14 +35,14 @@ function SavedMovies() {
   useEffect(() => setOnSavedPage(true), [setOnSavedPage]);
 
   return (
-    <div className="saved-movies-page">
-      <Header isAuth={true} modifier="profile" />
-      <section className="movies__container movies__container_type_saved-page">
-        <SearchForm />
-        <MoviesCardList data={allMovies} onSavedPage={onSavedPage} />
-      </section>
-      <Footer />
-    </div>
+    <>
+      <Header isAuth={true} modifier="profile" /><section className="saved-movies-page">
+        <div className="movies__container movies__container_type_saved-page">
+          <SearchForm />
+          <MoviesCardList data={allMovies} onSavedPage={onSavedPage} />
+        </div>
+      </section><Footer />
+    </>
   )
 }
 

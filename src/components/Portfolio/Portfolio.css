@@ -32,6 +32,10 @@
   padding: 20px 0;
 }
 
+.project:last-of-type {
+  border: none;
+}
+
 .project__link {
   display: flex;
   justify-content: space-between;

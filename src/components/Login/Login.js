@@ -20,20 +20,26 @@ function Login() {
         <form className="auth__form">
           <fieldset className="login__fieldset">
             <Input
+              modifier="auth"
               name="email"
               label="E-mail"
               type="email"
               required
+              placeholder="pochta@yandex.ru"
             ></Input>
             <Input
+              modifier="auth"
               name="password"
               label="Пароль"
               type="password"
+              minLength="8"
+              maxLength="20"
               required
+              placeholder="••••••••••••••"
             ></Input>
           </fieldset>
           <p className="auth__error-message"></p>
-          <button className="form__submit-btn">Войти</button>
+          <button className="form__submit-btn" type="submit">Войти</button>
         </form>
         <div className="auth__signin">
           <p className="auth__signin-text">Ещё не зарегистрированы?</p>

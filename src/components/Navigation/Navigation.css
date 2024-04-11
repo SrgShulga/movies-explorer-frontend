@@ -1,4 +1,4 @@
-.nav__overlay {
+.app__overlay {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -11,12 +11,12 @@
   z-index: 11;
 }
 
-.nav__overlay_visible {
+.app__overlay_visible {
   visibility: visible;
   opacity: 1;
 }
 
-.nav__sidebar {
+.app__sidebar {
   width: 520px;
   height: 100vh;
   box-sizing: border-box;
@@ -33,15 +33,15 @@
   transition: transform 0.2s ease-in-out;
 }
 
-.nav__sidebar_visible {
+.app__sidebar_visible {
   transform: translateX(0);
 }
 
-.nav__sidebar_hidden {
+.app__sidebar_hidden {
   transform: translateX(100%);
 }
 
-.nav__sidebar-close {
+.app__sidebar-close {
   position: absolute;
   top: 22px;
   right: 22px;
@@ -49,11 +49,11 @@
   transition: all 0.2s ease-in-out;
 }
 
-.nav__sidebar-close:hover {
+.app__sidebar-close:hover {
   transform: scale(1.2);
 }
 
-.nav__links {
+.app__sidebar-links {
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -62,22 +62,21 @@
   line-height: 22px;
 }
 
-.nav__link-item {
+.app__sidebar-link-item {
   color: #000;
   text-decoration: none;
   align-self: center;
-  padding-bottom: 4px;
+  padding-bottom: 7px;
 }
 
 .active {
   border-bottom: solid 2px #000;
 }
 
-.nav__account-btn {
+.app__sidebar-account-btn {
   padding: 8px 20px;
-  outline: none;
-  border: none;
   background-color: #F9F9F9;
+  color: #000;
   border-radius: 20px;
   cursor: pointer;
   font-size: 14px;
@@ -86,37 +85,41 @@
   transition: opacity 0.2s ease-in-out;
 }
 
-.nav__account-btn:hover {
+.app__sidebar-account-btn:hover {
   opacity: 0.6;
 }
 
+.app__sidebar-link {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 768px) {
-  .nav__links {
-    gap: 23px;
+  .app__sidebar-links {
+    gap: 21px;
   }
 
-  .nav__sidebar {
-    padding-bottom: 66px;
+  .app__sidebar {
+    padding-bottom: 90px;
   }
 }
 
 @media screen and (min-width: 400px) and (max-width: 660px) {
-  .nav__sidebar {
+  .app__sidebar {
     width: 80vw;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .nav__sidebar {
+  .app__sidebar {
     width: 100vw;
-    padding: 144px 60px 266px;
+    padding: 144px 60px 46px;
   }
 
-  .nav__links {
-    gap: 19px;
+  .app__sidebar-links {
+    gap: 16px;
   }
 
-  .nav__sidebar-close {
+  .app__sidebar-close {
     top: 13px;
     right: 13px;
   }

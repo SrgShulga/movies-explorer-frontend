@@ -18,7 +18,7 @@ function MoviesCard({ title, duration, imageUrl }) {
           <h3 className="movie-card__title">{title}</h3>
           {!onSavedPage ? (
             <button className="movie-card__save-btn" onClick={handleSave}>
-              <div className={`btn-circle ${isSaved ? "btn-circle_type_green" : ""}`}></div>
+              <span className={`btn-circle ${isSaved ? "btn-circle_type_green" : ""}`}></span>
             </button>
           ) : (
             <button className="movie-card__delete-btn" onClick={handleDelete}>

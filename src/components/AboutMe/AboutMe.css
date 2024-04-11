@@ -7,7 +7,7 @@
 .about-me__title {
   padding-bottom: 23px;
   margin: 0;
-  border-bottom: 2px solid #000;
+  border-bottom: 1px solid #000;
   font-size: 22px;
   font-weight: 400;
   line-height: 27px;
@@ -76,6 +76,18 @@
 
 .contact__link:hover {
   opacity: 0.6;
+}
+
+@media screen and (min-width: 786px) and (max-width: 1050px) {
+  .student__description {
+    max-width: calc(100% - 40px);
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 760px) {
+  .student__description {
+    max-width: calc(100% - 20px);
+  }
 }
 
 @media screen and (max-width: 786px) {

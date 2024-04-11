@@ -10,9 +10,9 @@ function NotFound() {
       <div className="not-found__container">
         <div className="not-found__text">
           <p className="not-found__error">404</p>
-          <h2 className="not-found__title">Страница не найдена</h2>
+          <h1 className="not-found__title">Страница не найдена</h1>
         </div>
-        <button className="not-found__return" onClick={() => {navigate(-1)}}>Назад</button>
+        <button className="not-found__return" onClick={() => { navigate(-1) }}>Назад</button>
       </div>
     </section>
   )

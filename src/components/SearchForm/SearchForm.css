@@ -22,6 +22,10 @@
   line-height: 17px;
 }
 
+.search-form__input:focus-within {
+  outline: 1px solid #2BE080;
+}
+
 .search-form__button {
   padding: 6px 29px;
   outline: none;

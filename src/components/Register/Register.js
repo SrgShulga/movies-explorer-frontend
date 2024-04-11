@@ -20,27 +20,37 @@ function Register() {
         <form className="auth__form">
           <fieldset className="register__fieldset">
             <Input
-              name="name"
+              modifier="auth"
+              name="username"
               label="Имя"
-              type="name"
+              type="text"
               required
+              minLength="2"
+              maxLength="30"
+              placeholder="Виталий"
             ></Input>
             <Input
+              modifier="auth"
               name="email"
               label="E-mail"
               type="email"
               required
+              placeholder="pochta@yandex.ru"
             ></Input>
             <Input
+              modifier="auth"
               name="password"
               label="Пароль"
               type="password"
               required
+              minLength="8"
+              maxLength="20"
               error="Что-то пошло не так..."
+              placeholder="••••••••••••••"
             ></Input>
           </fieldset>
           <p className="auth__error-message"></p>
-          <button className="form__submit-btn">Зарегистрироваться</button>
+          <button className="form__submit-btn" type="submit">Зарегистрироваться</button>
         </form>
         <div className="auth__signin">
           <p className="auth__signin-text">Уже зарегистрированы?</p>

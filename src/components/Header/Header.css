@@ -29,14 +29,15 @@
   gap: 10px;
 }
 
+.header__link-item {
+  text-decoration: none;
+}
+
 .header__account-btn {
   box-sizing: border-box;
-  outline: none;
-  border: none;
   color: #000;
   border-radius: 3px;
   padding: 8px 20px;
-  background-color: transparent;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   font-size: 12px;

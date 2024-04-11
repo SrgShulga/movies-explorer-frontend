@@ -30,6 +30,10 @@
   border-bottom: solid 1px #E8E8E8;
 }
 
+.input__container_type_profile:last-of-type {
+  border: none;
+}
+
 .input__label_type_profile {
   margin: 0;
   white-space: nowrap;
@@ -49,6 +53,12 @@
 .form__buttons {
   display: flex;
   flex-direction: column;
+}
+
+.form__link {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .form__btn {

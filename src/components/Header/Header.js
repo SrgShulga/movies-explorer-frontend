@@ -12,7 +12,7 @@ function Header(props) {
 
   return (
     <>
-      <div className={`header header_type_${props.modifier}`}>
+      <header className={`header header_type_${props.modifier}`}>
         <div className="header__container">
           <Link to='/' className="header__logo-navlink">
             <svg className="header__logo" xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="none">
@@ -31,18 +31,18 @@ function Header(props) {
           )}
           <div className="header__account-controllers">
             {props.isAuth ? (
-              <Link to='/profile'>
-                <button className={`header__account-btn header__account-btn_type_authorized header__account-btn_type_${props.modifier}`}>
+              <Link to='/profile' className="header__link-item">
+                <div className={`header__account-btn header__account-btn_type_authorized header__account-btn_type_${props.modifier}`}>
                   Аккаунт
-                </button>
+                </div>
               </Link>
             ) : (
               <>
-                <Link to='/signup'>
-                  <button className="header__account-btn header__account-btn_type_text">Регистрация</button>
+                <Link to='/signup' className="header__link-item">
+                  <div className="header__account-btn header__account-btn_type_text">Регистрация</div>
                 </Link>
-                <Link to='/signin'>
-                  <button className="header__account-btn header__account-btn_type_color">Войти</button>
+                <Link to='/signin' className="header__link-item">
+                  <div className="header__account-btn header__account-btn_type_color">Войти</div>
                 </Link>
               </>
             )}
@@ -58,9 +58,9 @@ function Header(props) {
               </svg>
             ))
           }
-          <Navigation isOpen={isNavigationOpened} closeHandler={navigationHandler}></Navigation>
         </div>
-      </div>
+      </header>
+      <Navigation isOpen={isNavigationOpened} closeHandler={navigationHandler}></Navigation>
     </>
   )
 }
