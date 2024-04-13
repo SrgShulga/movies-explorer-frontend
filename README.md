@@ -9,4 +9,4 @@ Public IP: 158.160.147.65
 
 Адрес репозитория: https://github.com/SrgShulga/movies-explorer-frontend
 
-Проект https://mestosocial.students.nomoredomainsmonster.ru:
+Проект https://mestosocial.students.nomoredomainsmonster.ru
