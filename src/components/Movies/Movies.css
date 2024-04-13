@@ -1,0 +1,42 @@
+.movies__container {
+  max-width: calc(100% - 140px);
+  margin: 0 auto;
+}
+
+.movies__container_type_saved-page {
+  padding-bottom: 140px;
+}
+
+.movies__btn-container {
+  padding: 50px 0 80px;
+}
+
+.movies__more-button {
+  width: 100%;
+  padding: 11px 10px 9px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  background-color: #F9F9F9;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.movies__more-button:hover {
+  background-color: rgba(152, 145, 145, 0.576);
+}
+
+@media screen and (max-width: 768px) {
+  .movies__container {
+    max-width: calc(100% - 60px);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .movies__container {
+    max-width: calc(100% - 20px);
+  }
+}

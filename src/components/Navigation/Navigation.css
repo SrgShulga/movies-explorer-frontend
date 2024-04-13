@@ -1,0 +1,126 @@
+.app__overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+  z-index: 11;
+}
+
+.app__overlay_visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.app__sidebar {
+  width: 520px;
+  height: 100vh;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 159px 60px 90px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.app__sidebar_visible {
+  transform: translateX(0);
+}
+
+.app__sidebar_hidden {
+  transform: translateX(100%);
+}
+
+.app__sidebar-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.app__sidebar-close:hover {
+  transform: scale(1.2);
+}
+
+.app__sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.app__sidebar-link-item {
+  color: #000;
+  text-decoration: none;
+  align-self: center;
+  padding-bottom: 7px;
+}
+
+.active {
+  border-bottom: solid 2px #000;
+}
+
+.app__sidebar-account-btn {
+  padding: 8px 20px;
+  background-color: #F9F9F9;
+  color: #000;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.app__sidebar-account-btn:hover {
+  opacity: 0.6;
+}
+
+.app__sidebar-link {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .app__sidebar-links {
+    gap: 21px;
+  }
+
+  .app__sidebar {
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 660px) {
+  .app__sidebar {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app__sidebar {
+    width: 100vw;
+    padding: 144px 60px 46px;
+  }
+
+  .app__sidebar-links {
+    gap: 16px;
+  }
+
+  .app__sidebar-close {
+    top: 13px;
+    right: 13px;
+  }
+}
