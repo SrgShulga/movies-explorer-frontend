@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import "./Header.css";
 import { Link, useLocation } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
+import UseEscapeByPress from "../../utils/escapeByPress";
 
 function Header(props) {
   const [isNavigationOpened, setNavigationOpened] = useState(false);
 
-  const navigationHandler = () => setNavigationOpened(!isNavigationOpened);
+  function navigationHandler () {
+    setNavigationOpened(!isNavigationOpened);
+  }
+  
+  UseEscapeByPress(navigationHandler, isNavigationOpened);
 
   const location = useLocation();
 
@@ -21,16 +26,16 @@ function Header(props) {
               <path fill="#2BE080" fillRule="evenodd" d="M15.154 19a3.846 3.846 0 1 0 7.692 0H25a6 6 0 0 1-12 0h2.154Z" clipRule="evenodd" />
             </svg>
           </Link>
-          {props.isAuth ? (
+          {props.loggedIn ? (
             <div className={`header__nav-links header__nav-links_type_${props.modifier}`}>
-              <a href="/movies" className={`header__nav-link header__nav-link_type_${props.modifier}`}>Фильмы</a>
-              <a href="/saved-movies" className={`header__nav-link header__nav-link_type_${props.modifier}`}>Сохранённые фильмы</a>
+              <Link to="/movies" className={`header__nav-link header__nav-link_type_${props.modifier}`}>Фильмы</Link>
+              <Link to="/saved-movies" className={`header__nav-link header__nav-link_type_${props.modifier}`}>Сохранённые фильмы</Link>
             </div>
           ) : (
             <></>
           )}
           <div className="header__account-controllers">
-            {props.isAuth ? (
+            {props.loggedIn ? (
               <Link to='/profile' className="header__link-item">
                 <div className={`header__account-btn header__account-btn_type_authorized header__account-btn_type_${props.modifier}`}>
                   Аккаунт
@@ -47,7 +52,7 @@ function Header(props) {
               </>
             )}
           </div>
-          {props.isAuth && (
+          {props.loggedIn && (
             (location.pathname === '/') ? (
               <svg className="header__burger-menu" xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="none" onClick={navigationHandler}>
                 <path fill="#fff" fillRule="evenodd" d="M36 14H8v-3h28v3ZM36 24H8v-3h28v3ZM36 34H8v-3h28v3Z" clipRule="evenodd" />
@@ -60,7 +65,7 @@ function Header(props) {
           }
         </div>
       </header>
-      <Navigation isOpen={isNavigationOpened} closeHandler={navigationHandler}></Navigation>
+      <Navigation isOpen={isNavigationOpened} closeBurgerHandler={navigationHandler}></Navigation>
     </>
   )
 }

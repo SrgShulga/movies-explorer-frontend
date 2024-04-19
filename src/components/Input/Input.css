@@ -21,26 +21,19 @@
   border-radius: 8px;
 }
 
-.form__input_type_profile {
-  width: 100%;
+.form__input-error {
+  outline: 1px solid #EE3465;
+  color: #EE3465;
 }
 
-.form__input_type_auth:focus-within {
-  outline: 1px solid #2BE080;
-}
-
-.input__container_type_profile:focus-within {
-  max-height: 30px;
-  border-bottom: 1px solid #2BE080;
-}
-
-.input__container_type_profile:last-of-type:focus-within {
-  border-bottom: 1px solid #2BE080;
+.form__input-error:focus-within {
+  outline: 1px solid #EE3465;
 }
 
 .input__error {
   display: block;
   margin-top: 8px;
+  padding-bottom: 5px;
   height: 12px;
   font-size: 10px;
   font-weight: 400;

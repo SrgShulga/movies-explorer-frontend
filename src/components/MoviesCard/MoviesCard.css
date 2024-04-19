@@ -1,6 +1,4 @@
 .movie-card__item {
-  width: 270px;
-  height: 218px;
   border-radius: 10px;
   background-color: #FDFDFD;
   box-shadow: 0px 16px 24px 0px #0000000D;
@@ -27,7 +25,11 @@
 }
 
 .movie-card__title {
+  max-width: 220px;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 13px;
   font-weight: 500;
   line-height: 15.73px;
@@ -82,22 +84,12 @@
 }
 
 @media screen and (max-width: 768px) {
-  .movie-card__item {
-    width: 339px;
-    height: 257px;
-  }
-
   .movie-card__image {
     height: 190px;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .movie-card__item {
-    width: 300px;
-    height: 235px;
-  }
-
   .movie-card__image {
     height: 168px;
   }

@@ -1,10 +1,10 @@
 import React from "react";
 import './Input.css'
 
-function Input({name, label, error, modifier, ...rest}) {
+function Input({ name, label, error, modifier, errorClassName, containerErrorClassName, ...rest }) {
   return (
     <>
-      <div className={`input__container input__container_type_${modifier}`}>
+      <div className={`input__container ${containerErrorClassName} input__container_type_${modifier}`}>
         <label
           className={`input__label input__label_type_${modifier}`}
           htmlFor={name}
@@ -12,7 +12,7 @@ function Input({name, label, error, modifier, ...rest}) {
           {label}
         </label>
         <input
-          className={`form__input form__input_type_${modifier}`}
+          className={`form__input form__input_type_${modifier} ${errorClassName}`}
           id={name}
           name={name}
           {...rest}

@@ -1,11 +1,11 @@
 .login__fieldset {
-  padding: 0;
-  margin: 0 0 123px;
+  margin: 0;
+  padding: 0 0 148px;
   border: none;
 }
 
 @media screen and (max-width: 450px) {
   .login__fieldset {
-    margin: 0 0 213px;
+    padding: 0 0 220px;
   }
 }
