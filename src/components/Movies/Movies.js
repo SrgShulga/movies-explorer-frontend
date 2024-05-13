@@ -1,139 +1,124 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
-import Header from "../Header/Header";
 import './Movies.css'
+import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import savedPageContext from "../../contexts/savedPageContext";
+import moviesApi from "../../utils/MoviesApi";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { filterMovies, filterShortMovies, validateMovieData } from "../../utils/utils";
 
-const allMovies = [
-  {
-    id: 1,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 2,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 3,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 4,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  }, {
-    id: 5,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 6,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 7,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 8,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 9,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 10,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 11,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 12,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 13,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 14,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 15,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 16,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-]
+function Movies({ setIsLoader, setInfoPopup, savedMoviesList, onClickLike, onClickDelete, loggedIn }) {
+  const currentUser = useContext(CurrentUserContext);
 
-function Movies() {
-  const { setOnSavedPage } = useContext(savedPageContext);
-  useEffect(() => setOnSavedPage(false), [setOnSavedPage]);
+  const [shortMovies, setShortMovies] = useState(false);
+  const [initialMovies, setInitialMovies] = useState([]);
+  const [isAllMovies, setIsAllMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [NotFound, setNotFound] = useState(false);
+
+  function handleSearchMovies(inputValue) {
+    localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
+    localStorage.setItem(`${currentUser.email} - shortMovies`, shortMovies);
+
+    if (isAllMovies.length === 0) {
+      setIsLoader(true);
+      moviesApi.getMovies()
+        .then(movies => {
+          setIsAllMovies(movies);
+          handleRenderFilteredMovies(
+            validateMovieData(movies),
+            inputValue,
+            shortMovies
+          );
+        })
+        .catch(() =>
+          setInfoPopup({
+            isOpen: true,
+            successful: false,
+            text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
+          })
+        )
+        .finally(() => setIsLoader(false));
+    } else {
+      handleRenderFilteredMovies(isAllMovies, inputValue, shortMovies);
+    }
+  }
+
+  function handleRenderFilteredMovies(movies, userQuery, shortMoviesCheckbox) {
+    const moviesList = filterMovies(movies, userQuery, shortMoviesCheckbox)
+    if (moviesList.length === 0) {
+      setInfoPopup({
+        isOpen: true,
+        successful: false,
+        text: 'Ничего не найдено.',
+      });
+      setNotFound(true);
+    } else {
+      setNotFound(false);
+    }
+    setInitialMovies(moviesList);
+    setFilteredMovies(
+      shortMoviesCheckbox ? filterShortMovies(moviesList) : moviesList
+    );
+    localStorage.setItem(
+      `${currentUser.email} - movies`,
+      JSON.stringify(moviesList)
+    );
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem(`${currentUser.email} - shortMovies`) === 'true') {
+      setShortMovies(true);
+    } else {
+      setShortMovies(false);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (localStorage.getItem(`${currentUser.email} - movies`)) {
+      const movies = JSON.parse(
+        localStorage.getItem(`${currentUser.email} - movies`)
+      );
+      setInitialMovies(movies);
+      if (
+        localStorage.getItem(`${currentUser.email} - shortMovies`) === 'true'
+      ) {
+        setFilteredMovies(filterShortMovies(movies));
+      } else {
+        setFilteredMovies(movies);
+      }
+    }
+  }, [currentUser]);
+
+  function handleCheckShortMovies() {
+    setShortMovies(!shortMovies);
+    if (!shortMovies) {
+      setFilteredMovies(filterShortMovies(initialMovies));
+    } else {
+      setFilteredMovies(initialMovies);
+    }
+    localStorage.setItem(`${currentUser.email} - shortMovies`, !shortMovies);
+  }
 
   return (
     <>
-      <Header isAuth={true} modifier={'profile'} />
+      <Header loggedIn={loggedIn} modifier={'profile'} />
       <section className="movies">
         <div className="movies__container">
-          <SearchForm />
-          <MoviesCardList data={allMovies} onMainPage />
-          <div className="movies__btn-container">
-            <button className="movies__more-button" type="button">Ещё</button>
-          </div>
+          <SearchForm
+            handleSearchMovies={handleSearchMovies}
+            handleCheckShortMovies={handleCheckShortMovies}
+            shortMovies={shortMovies}
+          />
+          {!NotFound && (
+            <MoviesCardList
+              moviesArr={filteredMovies}
+              savedMoviesList={savedMoviesList}
+              onClickLike={onClickLike}
+              onClickDelete={onClickDelete}
+            />
+          )}
         </div>
       </section>
       <Footer />

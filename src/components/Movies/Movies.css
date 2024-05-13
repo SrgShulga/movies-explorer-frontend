@@ -1,6 +1,18 @@
+.movies {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .movies__container {
-  max-width: calc(100% - 140px);
-  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 58px 70px 80px;
 }
 
 .movies__container_type_saved-page {
@@ -8,7 +20,8 @@
 }
 
 .movies__btn-container {
-  padding: 50px 0 80px;
+  width: 100%;
+  padding: 50px 0 0;
 }
 
 .movies__more-button {
@@ -31,12 +44,12 @@
 
 @media screen and (max-width: 768px) {
   .movies__container {
-    max-width: calc(100% - 60px);
+    padding: 74px 30px 80px;
   }
 }
 
 @media screen and (max-width: 425px) {
   .movies__container {
-    max-width: calc(100% - 20px);
+    padding: 74px 10px 80px;
   }
 }

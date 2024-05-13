@@ -1,47 +1,85 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import './SavedMovies.css'
 import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import savedPageContext from "../../contexts/savedPageContext";
+import Footer from "../Footer/Footer";
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { filterMovies, filterShortMovies } from '../../utils/utils';
 
-const allMovies = [
-  {
-    id: 1,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 2,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    id: 3,
-    title: "33 слова о дизайне",
-    duration: "1ч27м",
-    imageUrl:
-      "https://images.unsplash.com/photo-1596641237195-7d2a9ae9cd2a?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-]
+function SavedMovies({ onClickDelete, savedMoviesList, setInfoPopup, loggedIn }) {
+  const currentUser = useContext(CurrentUserContext);
 
-function SavedMovies() {
+  const [showedMovies, setShowedMovies] = useState(savedMoviesList);
+  const [filteredMovies, setFilteredMovies] = useState(showedMovies);
+  const [shortMovies, setShortMovies] = useState(false);
+  const [NotFound, setNotFound] = useState(false);
 
-  const { onSavedPage, setOnSavedPage } = useContext(savedPageContext);
-  useEffect(() => setOnSavedPage(true), [setOnSavedPage]);
+  useEffect(() => {
+    if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
+      setShortMovies(true);
+      setShowedMovies(filterShortMovies(savedMoviesList));
+    } else {
+      setShortMovies(false);
+      setShowedMovies(savedMoviesList);
+    }
+  }, [savedMoviesList, currentUser]);
+
+  useEffect(() => {
+    setFilteredMovies(savedMoviesList);
+    savedMoviesList.length !== 0 ? setNotFound(false) : setNotFound(true);
+  }, [savedMoviesList]);
+
+  function handleSearchMovies(inputValue) {
+    const moviesList = filterMovies(savedMoviesList, inputValue, shortMovies);
+    if (moviesList.length === 0) {
+      setNotFound(true);
+      setInfoPopup({
+        isOpen: true,
+        successful: false,
+        text: 'Ничего не найдено.',
+      });
+    } else {
+      setNotFound(false);
+      setFilteredMovies(moviesList);
+      setShowedMovies(moviesList);
+    }
+  }
+
+  function handleShortFilms() {
+    if (!shortMovies) {
+      setShortMovies(true);
+      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, true);
+      setShowedMovies(filterShortMovies(filteredMovies));
+      filterShortMovies(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
+    } else {
+      setShortMovies(false);
+      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, false);
+      filteredMovies.length === 0 ? setNotFound(true) : setNotFound(false);
+      setShowedMovies(filteredMovies);
+    }
+  }
 
   return (
     <>
-      <Header isAuth={true} modifier="profile" /><section className="saved-movies-page">
+      <Header loggedIn={loggedIn} modifier={'profile'} />
+      <section className="saved-movies-page">
         <div className="movies__container movies__container_type_saved-page">
-          <SearchForm />
-          <MoviesCardList data={allMovies} onSavedPage={onSavedPage} />
+          <SearchForm
+            handleSearchMovies={handleSearchMovies}
+            handleCheckShortMovies={handleShortFilms}
+            shortMovies={shortMovies}
+          />
+          {!NotFound && (
+            <MoviesCardList
+              moviesArr={showedMovies}
+              savedMoviesList={savedMoviesList}
+              onClickDelete={onClickDelete}
+            />
+          )}
         </div>
-      </section><Footer />
+      </section>
+      <Footer />
     </>
   )
 }
