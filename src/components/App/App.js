@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { React, useEffect, useState } from 'react';
 import './App.css';
-import { Route, Routes, useLocation, useNavigate, } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate, } from "react-router-dom";
 import mainApi from '../../utils/MainApi';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
@@ -72,7 +73,7 @@ function App() {
     } else {
       setLoad(true);
     }
-  }, [location.pathname, navigate]);
+  }, []);
 
   useEffect(() => {
     if (loggedIn && currentUser) {
@@ -210,8 +211,22 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
             <Route path='/' element={<Main loggedIn={loggedIn} />}></Route>
-            <Route path='signin' element={<Login handleLogin={handleLogin} />}></Route>
-            <Route path='signup' element={<Register handleRegister={handleRegister} />}></Route>
+            <Route path='signin' element={
+              !loggedIn ? (
+                <Login handleLogin={handleLogin} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }>
+            </Route>
+            <Route path='signup' element={
+              !loggedIn ? (
+                <Register handleRegister={handleRegister} />
+              ) : (
+                <Navigate to='/' />
+              )
+            }>
+            </Route>
             <Route path='/profile' element={
               <ProtectedRoute
                 element={Profile}

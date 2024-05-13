@@ -110,7 +110,7 @@
 
 @media screen and (max-width: 450px) {
   .auth__page {
-    padding-top: 56px;
+    padding: 40px 30px 33px;
   }
 
   .auth__signin {
@@ -131,7 +131,7 @@
   }
 
   .register__fieldset {
-    padding-bottom: 144px;
+    padding-bottom: 120px;
   }
 
   .form__submit-btn {
